@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
 
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth()
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home")
+    }
+  })
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    axios.post("http://localhost:3001/login", { email, password })
+    await axios.post("http://localhost:3001/login", { email, password })
       .then(result => {
-        console.log(result)
         if (result.data === "Success") {
+          setIsLoggedIn(true)
+          localStorage.setItem('isLoggedIn', "true");
           navigate("/home")
         } else {
           navigate("/register")
@@ -24,6 +34,7 @@ function Login() {
       .catch(err => console.log(err))
   }
 
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
