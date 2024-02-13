@@ -10,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const { isLoggedIn, setIsLoggedIn } = useAuth()
+  const { isLoggedIn, setIsLoggedIn, setUserRole } = useAuth()
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -22,9 +22,12 @@ function Login() {
     e.preventDefault()
     await axios.post("http://localhost:3001/login", { email, password })
       .then(result => {
-        if (result.data === "Success") {
-          setIsLoggedIn(true)
+        if (result.data.success === "Success") {
+          const userRole = result.data.userRole;
           localStorage.setItem('isLoggedIn', "true");
+          localStorage.setItem('userRole', userRole);
+          setUserRole(userRole)
+          setIsLoggedIn(true)
           navigate("/home")
         } else {
           navigate("/register")

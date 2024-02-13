@@ -17,7 +17,7 @@ const Signup = () => {
       alert("Input all!")
     } else {
       if (password === repassword) {
-        const userRole = 1;
+        const userRole = "regularUser";
         axios.post("http://localhost:3001/register", { name, email, password, userRole })
           .then(result => {
             console.log(result)

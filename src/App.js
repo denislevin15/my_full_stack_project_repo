@@ -5,6 +5,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Home from './pages/Home'
 
+
 import { AuthProvider } from './context/AuthContext'
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/register' element={<Signup />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/home' element={<Home />} />
+            <Route path='/home/*' element={<Home />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
