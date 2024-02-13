@@ -1,32 +1,23 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { useAuth } from "../context/AuthContext";
-
+import React from "react";
+import { Route, Routes } from 'react-router-dom'
+import Navbar from "../components/Navbar";
+import AddExercise from './regularUser'
+import AddUser from './userManager'
+import { ExerciseList, UserList } from './admin'
 
 function Home() {
-  const navigate = useNavigate()
-
-  const { isLoggedIn, setIsLoggedIn } = useAuth()
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login")
-    }
-  }, [isLoggedIn, navigate])
-
-  const onSignOut = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  }
-
+  
   return (
-    <center>
-      <h1>
-        This is Home Component
-      </h1>
-      <button onClick={onSignOut}>signout</button>
-    </center>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<div>hello</div>} />
+        <Route path='/addexercise' element={<AddExercise />} />
+        <Route path='/adduser' element={<AddUser />} />
+        <Route path='/exerciselist' element={<ExerciseList />} />
+        <Route path='/userlist' element={<UserList />} />
+      </Routes>
+      </>
   )
 }
 
