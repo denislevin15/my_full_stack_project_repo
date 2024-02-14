@@ -7,8 +7,7 @@ const ExerciseListForOneUser = () => {
     const fetchExerciseList = async () => {
       try {
         const response = await axios.get('http://localhost:3001/getexerciselist');
-        setExerciseLists(response);
-        console.log(response);
+        setExerciseLists(response.data);
       } catch (err) {
         console.error(err.name + ":" + err.message)
       }
@@ -29,13 +28,18 @@ const ExerciseListForOneUser = () => {
         </thead>
         <tbody>
           {
-            exerciseLists.map((index, exerciseLists) => {
-              return (
-                <tr>
-                  <td></td>
-                </tr>
-              )
-            })
+            exerciseLists.map((exerciseList, index) =>
+              <tr key={exerciseList._id}>
+                <td>{index + 1}</td>
+                <td>{ exerciseList.exerciseName}</td>
+                <td>{ exerciseList.exerciseDuration}</td>
+                <td>{exerciseList.exerciseDate}</td>
+                <td>
+                  <button>delete</button>
+                  <button>edit</button>
+                </td>
+              </tr>
+            )
           }
         </tbody>
       </table>
