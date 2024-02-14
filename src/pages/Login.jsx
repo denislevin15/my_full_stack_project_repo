@@ -20,21 +20,23 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.post("http://localhost:3001/login", { email, password })
-      .then(result => {
-        if (result.data.success === "Success") {
-          const userRole = result.data.userRole;
-          localStorage.setItem('isLoggedIn', "true");
-          localStorage.setItem('userRole', userRole);
-          setUserRole(userRole)
-          setIsLoggedIn(true)
-          navigate("/home")
-        } else {
-          navigate("/register")
-          alert("You are not registered to this service")
-        }
-      })
-      .catch(err => console.log(err))
+    try {
+      const result = await axios.post("http://localhost:3001/login", { email, password })
+      if (result.data.success === "Success") {
+        const userRole = result.data.userRole;
+        const userId = result.data.userId;
+        localStorage.setItem('isLoggedIn', userId);
+        localStorage.setItem('userRole', userRole);
+        setUserRole(userRole)
+        setIsLoggedIn(userId)
+        navigate("/home")
+      } else {
+        navigate("/register")
+        alert("You are not registered to this service")
+      }
+    } catch(err){
+      alert(err.name + ":" + err.message);
+    }
   }
 
   
@@ -53,6 +55,7 @@ function Login() {
               placeholder='Enter Email'
               autoComplete='off'
               name='email'
+              value={email}
               className='form-control rounded-0'
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -65,6 +68,7 @@ function Login() {
             <input type="password"
               placeholder='Enter Password'
               name='password'
+              value={password}
               className='form-control rounded-0'
               onChange={(e) => setPassword(e.target.value)}
               required

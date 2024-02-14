@@ -18,33 +18,33 @@ const Navbar = () => {
 
   const onSignOut = () => {
     localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
+    setIsLoggedIn("");
     localStorage.removeItem("userRole");
     setUserRole("");
   }
   
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <Link class="navbar-brand" to="/home">Home</Link>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <Link className="navbar-brand" to="/home">Home</Link>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
           {
             navItems.filter((number) => {
               return number.role === userRole
             }).map((navItem, index) => {
               return (
-                <li class="nav-item" key={index}>
-                  <Link class="nav-link" to={navItem.url}>{navItem.item}</Link>
+                <li className="nav-item" key={index}>
+                  <Link className="nav-link" to={navItem.url}>{navItem.item}</Link>
                 </li>
               )
             })         
           }
         </ul>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={onSignOut}>Sign Out</button>
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={onSignOut}>Sign Out</button>
       </div>
     </nav>
   )

@@ -11,28 +11,22 @@ const Signup = () => {
   const [repassword, setRePassword] = useState("")
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === "" || email === "" || password === "" || repassword === "") {
-      alert("Input all!")
-    } else {
+    
       if (password === repassword) {
         const userRole = "regularUser";
-        axios.post("http://localhost:3001/register", { name, email, password, userRole })
-          .then(result => {
-            console.log(result)
-            if (result.data === "Existed") {
-              alert("The user already exists")
-              setEmail("");
-            }
-            else navigate("/login")
-          })
-          .catch(err => console.log(err))
+        try {
+          const result = await axios.post("http://localhost:3001/register", { name, email, password, userRole })
+          if (result.data === "Existed") {
+            alert("The user already exists")
+            setEmail("");
+          } else navigate("/login")
+        } catch (err) {alert(err.name+":"+err.message) }
       }
       else {
         alert("Confirm the password correctly!")
       }
-    }
   }
 
 
@@ -53,6 +47,7 @@ const Signup = () => {
               value={name}
               className='form-control rounded-0'
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div className="mb-3">
@@ -66,7 +61,7 @@ const Signup = () => {
               value={email}
               className='form-control rounded-0'
               onChange={(e) => setEmail(e.target.value)}
-
+              required
             />
           </div>
           <div className="mb-3">
@@ -79,7 +74,7 @@ const Signup = () => {
               value={password}
               className='form-control rounded-0'
               onChange={(e) => setPassword(e.target.value)}
-
+              required
             />
           </div>
           <div className="mb-3">
@@ -92,7 +87,7 @@ const Signup = () => {
               value={repassword}
               className='form-control rounded-0'
               onChange={(e) => setRePassword(e.target.value)}
-
+              required
             />
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
