@@ -1,7 +1,7 @@
 export const navItems = [
   {
     item: "Add Exercise",
-    url: "/home/addexercise",
+    url: "/exercise/addexercise",
     role: "regularUser"
   },
   {
@@ -11,12 +11,12 @@ export const navItems = [
   },
   {
     item: "User List",
-    url: "/home/userlist",
+    url: "/exercise/userlist",
     role: "admin"
   },
   {
     item: "Exercise List",
-    url: "/home/exerciselist",
+    url: "/exercise/exerciselist",
     role: "admin"
   }
 ];

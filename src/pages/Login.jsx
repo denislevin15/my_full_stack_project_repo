@@ -14,7 +14,7 @@ function Login() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/home")
+      navigate("/exercise")
     }
   })
 
@@ -29,7 +29,7 @@ function Login() {
         localStorage.setItem('userRole', userRole);
         setUserRole(userRole)
         setIsLoggedIn(userId)
-        navigate("/home")
+        navigate("/exercise")
       } else {
         navigate("/register")
         alert("You are not registered to this service")

@@ -24,28 +24,26 @@ const Navbar = () => {
   }
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/home">Home</Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav mr-auto">
-          {
-            navItems.filter((number) => {
-              return number.role === userRole
-            }).map((navItem, index) => {
-              return (
-                <li className="nav-item" key={index}>
-                  <Link className="nav-link" to={navItem.url}>{navItem.item}</Link>
-                </li>
-              )
-            })         
-          }
-        </ul>
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={onSignOut}>Sign Out</button>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+      <div className='d-flex'>
+        <Link className="navbar-brand" to="/exercise">Home</Link>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            {
+              navItems.filter((number) => {
+                return number.role === userRole
+              }).map((navItem, index) => {
+                return (
+                  <li className="nav-item" key={index}>
+                    <Link className="nav-link" to={navItem.url}>{navItem.item}</Link>
+                  </li>
+                )
+              })         
+            }
+          </ul>
+        </div>
       </div>
+      <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={onSignOut}>Sign Out</button>
     </nav>
   )
 }

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ExerciseListForOneUser = () => {
@@ -23,12 +24,9 @@ const ExerciseListForOneUser = () => {
     fetchExerciseList()
   }, [fetchExerciseList])
 
-  const onClickEdit = () => {
-
-  }
   return (
-    <div>
-      <table className="table table-bordered">
+    <div className="mt-5">
+      <table className="table table-bordered text-center fs-4">
         <thead className="thead-dark">
           <tr className="table-active">
             <th scope="col">No</th>
@@ -38,19 +36,20 @@ const ExerciseListForOneUser = () => {
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="fs-5">
           {
-            exerciseLists.map((exerciseList, index) =>
-              <tr key={exerciseList._id}>
-                <td>{index + 1}</td>
-                <td>{ exerciseList.exerciseName}</td>
-                <td>{ exerciseList.exerciseDuration}</td>
-                <td>{exerciseList.exerciseDate}</td>
-                <td className="d-flex gap-3">
-                  <button className="btn btn-primary w-100 rounded-0" onClick={onClickEdit}>edit</button>
-                  <button className="btn btn-danger w-100 rounded-0" onClick={() => onClickDeleteExercise(exerciseList._id)}>delete</button>
-                </td>
-              </tr>
+            exerciseLists.map(
+              (exerciseList, index) =>
+                <tr key={exerciseList._id}>
+                  <td>{index + 1}</td>
+                  <td>{ exerciseList.exerciseName}</td>
+                  <td>{ exerciseList.exerciseDuration}</td>
+                  <td>{exerciseList.exerciseDate.slice(0, 10)}</td>
+                  <td className="d-flex gap-3">
+                    <Link className="btn btn-primary w-100 rounded-0" to={`/exercise/${exerciseList._id}/detail`}>detail</Link>
+                    <button className="btn btn-danger w-100 rounded-0" onClick={() => onClickDeleteExercise(exerciseList._id)}>delete</button>
+                  </td>
+                </tr>
             )
           }
         </tbody>
