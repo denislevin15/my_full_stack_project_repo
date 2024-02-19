@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const AddExercise = () => {
@@ -9,6 +10,9 @@ const AddExercise = () => {
   const [exerciseDate, setExerciseDate] = useState("");
   const { isLoggedIn } = useAuth();
   const userId = isLoggedIn;
+
+  const navigate = useNavigate();
+
   const onClickAddExercise = async () => {
     if (exerciseName === "" || exerciseDuration === "" || exerciseDate === "") {
       alert("Please Input All!")
@@ -16,6 +20,7 @@ const AddExercise = () => {
       try {
         const result = await axios.post("http://localhost:3001/addexercise", { userId, exerciseName, exerciseDuration, exerciseDate })
         console.log(result.data);
+        navigate("/exercise")      
       } catch (err) { alert(err.name + ":" + err.message) }
     }
   }

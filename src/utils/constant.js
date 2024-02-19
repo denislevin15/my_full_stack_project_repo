@@ -6,7 +6,7 @@ export const navItems = [
   },
   {
     item: "Add User",
-    url: "/home/adduser",
+    url: "/exercise/adduser",
     role: "userManager"
   },
   {

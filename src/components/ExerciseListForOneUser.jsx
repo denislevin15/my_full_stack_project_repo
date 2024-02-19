@@ -46,7 +46,7 @@ const ExerciseListForOneUser = () => {
                   <td>{ exerciseList.exerciseDuration}</td>
                   <td>{exerciseList.exerciseDate.slice(0, 10)}</td>
                   <td className="d-flex gap-3">
-                    <Link className="btn btn-primary w-100 rounded-0" to={`/exercise/${exerciseList._id}/detail`}>detail</Link>
+                    <Link className="btn btn-primary w-100 rounded-0" to={`/exercise/${exerciseList._id}/edit`}>Edit</Link>
                     <button className="btn btn-danger w-100 rounded-0" onClick={() => onClickDeleteExercise(exerciseList._id)}>delete</button>
                   </td>
                 </tr>
