@@ -14,7 +14,7 @@ const Navbar = () => {
     if (!isLoggedIn) {
       navigate("/login")
     }
-  }, [isLoggedIn, navigate])
+  }, [isLoggedIn, navigate, setIsLoggedIn, setUserRole, userRole])
 
   const onSignOut = () => {
     localStorage.removeItem("isLoggedIn");

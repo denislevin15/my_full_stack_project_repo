@@ -20,6 +20,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    e.stopPropagation()
     try {
       const result = await axios.post("http://localhost:3001/login", { email, password })
       if (result.data.success === "Success") {

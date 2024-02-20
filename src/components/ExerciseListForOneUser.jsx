@@ -1,28 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import { fetchExerciseList, deleteExerciseOne } from "../api/ExerciseAPI";
 
 const ExerciseListForOneUser = () => {
 
+  const { isLoggedIn } = useAuth();
   const [exerciseLists, setExerciseLists] = useState([]);
-  const fetchExerciseList = useCallback(async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/getexerciselist');
-        setExerciseLists(response.data);
-      } catch (err) {
-        console.error(err.name + ":" + err.message)
-      }
-  }, [])
   
   useEffect(() => {
-    fetchExerciseList();
-  }, [fetchExerciseList])
+    if (isLoggedIn === "")
+      return;
+    (async () => {
+      const data = await fetchExerciseList(isLoggedIn);
+      setExerciseLists(data);
+    })();
+  
+  }, [isLoggedIn])
 
   const onClickDeleteExercise = useCallback(async (exerciseId) => {
-    const response = await axios.delete(`http://localhost:3001/deleteexercise/${exerciseId}`);
-    alert(response.data.message);
-    fetchExerciseList()
-  }, [fetchExerciseList])
+      await deleteExerciseOne(exerciseId);
+      
+      const data = await fetchExerciseList(isLoggedIn);
+      setExerciseLists(data);
+
+  }, [isLoggedIn])
 
   return (
     <div className="mt-5">
@@ -37,7 +39,9 @@ const ExerciseListForOneUser = () => {
           </tr>
         </thead>
         <tbody className="fs-5">
-          {
+          {exerciseLists.length === 0 ? (
+            <tr><td colSpan={5}>No Data</td></tr>
+          ) : (
             exerciseLists.map(
               (exerciseList, index) =>
                 <tr key={exerciseList._id}>
@@ -51,7 +55,7 @@ const ExerciseListForOneUser = () => {
                   </td>
                 </tr>
             )
-          }
+          )}
         </tbody>
       </table>
     </div>
